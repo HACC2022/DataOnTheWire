@@ -13,7 +13,9 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            user.is_active = False
+            user.save()
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
             subject = 'Registration Confirmation'

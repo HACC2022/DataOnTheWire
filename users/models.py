@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    department = models.CharField(max_length=3, default='None')
+    department = models.CharField(max_length=3)
 
     class Meta:
         db_table = 'auth_user'
