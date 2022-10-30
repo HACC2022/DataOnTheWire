@@ -10,6 +10,7 @@ from django.conf import settings
 
 
 def register(request):
+    user = request.user
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
