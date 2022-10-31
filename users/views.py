@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -7,6 +8,13 @@ from django.conf import settings
 
 
 # Create your views here.
+from .models import User
+
+
+@permission_required('users.is_admin')
+def admin(request):
+    inactive_users = User.objects.exclude(is_active=True)
+    return render(request, 'users/admin_page.html', {'inactive_users': inactive_users})
 
 
 def register(request):

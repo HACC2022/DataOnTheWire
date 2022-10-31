@@ -124,6 +124,8 @@ EMAIL_HOST_PASSWORD = 'xogmzultmlxfhhwj'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+LOGIN_URL = 'login'
+
 LOGIN_REDIRECT_URL = 'input-project-fact-sheet'
 
 # Default primary key field type

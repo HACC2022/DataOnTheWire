@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from input.forms import ProjectFactSheetForm
 
 
 # Create your views here.
+@login_required
 def project_fact_sheet_view(request):
     context = {}
     if request.method == 'POST':
