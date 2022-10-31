@@ -10,7 +10,7 @@ def project_fact_sheet_view(request):
     context = {}
     if request.method == 'POST':
         # create object of form
-        form = ProjectFactSheetForm(request.POST or None, request.FILES or None)
+        form = ProjectFactSheetForm(request.POST)
 
         # check if form data is valid
         if form.is_valid():

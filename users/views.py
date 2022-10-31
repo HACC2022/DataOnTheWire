@@ -29,7 +29,7 @@ def register(request):
             email = form.cleaned_data.get('email')
             subject = 'Registration Confirmation'
             message = f'Hi {username}, thank you for registering. An Admin has to approve your status as a department ' \
-                      f'employee. /n' \
+                      f'employee. \n' \
                       f'You will be noticed as soon as your status changes.'
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [email]

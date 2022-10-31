@@ -71,7 +71,7 @@ class ProjectFactSheet(models.Model):
     year_Funding_Received = models.PositiveIntegerField(validators=[MinValueValidator(1900), MaxValueValidator(9999)])
     project_Status_Update = models.TextField()
     links_Report_Studies = models.URLField(max_length=250)
-    links_Images = models.FileField(upload_to='linkImages/')
+    links_Images = models.FileField(upload_to='linkImages/', blank=True)
     input_POC_Last_Name = models.CharField(max_length=100)
     input_POC_First_Name = models.CharField(max_length=100)
     input_POC_Email = models.EmailField(max_length=254)
