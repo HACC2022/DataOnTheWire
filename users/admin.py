@@ -8,7 +8,7 @@ from .models import User
 class CustomUserAdmin(UserAdmin):
     model = User
 
-    list_display = ['email', 'department', 'is_active']
+    list_display = ['username', 'department', 'is_active']
 
     list_filter = ('is_active',)
 
