@@ -31,6 +31,8 @@ class CustomUserAdmin(UserAdmin):
     def get_readonly_fields(self, request, obj=None):
         if request.user.is_superuser:
             return []
+        if obj.is_active:
+            return self.readonly_fields + ('approved_by_staff',)
         return self.readonly_fields
 
 
