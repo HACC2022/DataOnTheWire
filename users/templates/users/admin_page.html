@@ -1,10 +1,14 @@
 {% extends "dataonthewire/base.html" %}
 {% block content %}
-    <h1>Download Sheets</h1>
-    <ul>
+    <div class="content-section">
         <form class="export_excel" id="export-excel" action="export-to-csv/">
             {% csrf_token %}
-            <button class="btn btn-outline-info" value="Export to Excel" type="submit">Export To Excel</button>
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Download Sheets to CSV</legend>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" value="Export to Excel" type="submit">Export To Excel</button>
+            </div>
         </form>
-    </ul>
+    </div>
 {% endblock content %}
