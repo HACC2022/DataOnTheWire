@@ -1,9 +1,10 @@
 {% extends "dataonthewire/base.html" %}
 {% block content %}
-    <h1>USERS</h1>
+    <h1>Download Sheets</h1>
     <ul>
-        {% for user in inactive_users %}
-            <li>{{ user }}</li>
-        {% endfor %}
+        <form class="export_excel" id="export-excel" action="export-to-csv/">
+            {% csrf_token %}
+            <button class="btn btn-outline-info" value="Export to Excel" type="submit">Export To Excel</button>
+        </form>
     </ul>
 {% endblock content %}
