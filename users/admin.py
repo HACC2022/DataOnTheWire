@@ -32,7 +32,7 @@ class CustomUserAdmin(UserAdmin):
         if request.user.is_superuser:
             return []
         if obj.is_active:
-            return self.readonly_fields + ('approved_by_staff',)
+            return self.readonly_fields + ('is_active',)
         return self.readonly_fields
 
 
