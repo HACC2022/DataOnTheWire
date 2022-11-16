@@ -29,6 +29,8 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['dataonthewire-production.up.railway.app','127.0.0.1', 'localhost']
 
+CSRF_TRUSTED_ORIGINS = ['https://dataonthewire-production.up.railway.app']
+
 
 # Application definition
 
