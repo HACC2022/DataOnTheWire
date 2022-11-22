@@ -8,7 +8,7 @@ import csv
 
 # Create your views here.
 def export_to_csv(request):
-    sheets = ProjectFactSheet.objects.all()
+    sheets = ProjectFactSheet.objects.filter(approved_by_staff=True)
     response = HttpResponse('text/csv')
     response['Content-Disposition'] = 'attachment; filename=sheets_export.csv'
     writer = csv.writer(response)
@@ -25,7 +25,6 @@ def export_to_csv(request):
         'input_POC_First_Name',
         'input_POC_Email',
         'input_Date',
-        'approved_by_staff',
     ])
     sheet_fields = sheets.values_list(
         'project_ID',
@@ -40,7 +39,6 @@ def export_to_csv(request):
         'input_POC_First_Name',
         'input_POC_Email',
         'input_Date',
-        'approved_by_staff',
     )
     for sheet in sheet_fields:
         writer.writerow(sheet)
