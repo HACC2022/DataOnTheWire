@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
 from input.models import ProjectFactSheet
 from django.http import HttpResponse
@@ -7,6 +7,7 @@ import csv
 
 
 # Create your views here.
+@permission_required('users.is_admin')
 def export_to_csv(request):
     sheets = ProjectFactSheet.objects.filter(approved_by_staff=True)
     response = HttpResponse('text/csv')
