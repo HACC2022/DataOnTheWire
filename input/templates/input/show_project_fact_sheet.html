@@ -1,0 +1,25 @@
+{% extends "dataonthewire/base.html" %}
+{% block content %}
+    <h1>Project Fact Sheets</h1>
+    <ul>
+        {% for project_fact_sheet in project_fact_sheets %}
+            <table>
+                <tr>
+                    <strong>{{ project_fact_sheet.project_ID }}</strong>
+                </tr>
+                <tr>
+                    <li>{{ project_fact_sheet.project_Phase }}</li>
+                </tr>
+                <tr>
+                    <li>{{ project_fact_sheet.source_of_Funding }}</li>
+                </tr>
+                <tr>
+                    <li>{{ project_fact_sheet.funding_Received }}</li>
+                </tr>
+                <tr>
+                    <li>{{ project_fact_sheet.year_Funding_Received }}</li>
+                </tr>
+            </table>
+        {% endfor %}
+    </ul>
+{% endblock content %}

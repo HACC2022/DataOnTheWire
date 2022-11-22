@@ -63,3 +63,8 @@ def project_fact_sheet_view(request):
     else:
         form = ProjectFactSheetForm()
     return render(request, 'input/project_fact_sheet.html', {'form': form})
+
+
+def show_project_fact_sheets(request):
+    project_fact_sheets = ProjectFactSheet.objects.all()
+    return render(request, 'input/show_project_fact_sheet.html', {'project_fact_sheets': project_fact_sheets})
