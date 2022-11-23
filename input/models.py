@@ -1,8 +1,15 @@
+from django.core.mail import send_mail
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 # Create your models here.
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+
+from dataonthewire import settings
+
+
 class ProjectFactSheet(models.Model):
     prePlan = "Pre-Planning"
     plan = "Planning"
@@ -77,3 +84,12 @@ class ProjectFactSheet(models.Model):
     input_POC_Email = models.EmailField(max_length=254)
     input_Date = models.DateField(auto_now_add=True)
     approved_by_staff = models.BooleanField(default=False)
+
+
+@receiver(pre_save, sender=ProjectFactSheet, dispatch_uid='active')
+def approved(sender, instance, **kwargs):
+    if instance.is_approved and ProjectFactSheet.objects.filter(pk=instance.pk, is_approved=False).exists():
+        subject = 'Sheet %s Approved' % instance.project_ID
+        message = '%s your sheet has been approved' % instance.input_POC_First_Name
+        from_email = settings.EMAIL_HOST_USER
+        send_mail(subject, message, from_email, [instance.input_POC_Email], fail_silently=False)
