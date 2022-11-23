@@ -20,12 +20,13 @@ class ProjectFactSheetAdmin(admin.ModelAdmin):
         'input_POC_Email',
         'input_Date',
         'approved_by_staff',
+        'rejected_by_staff',
     )
 
     def get_readonly_fields(self, request, obj=None):
         if request.user.is_superuser:
             return []
-        if not obj.approved_by_staff:
+        if not obj.approved_by_staff or not obj.rejected_by_staff:
             return []
         return self.readonly_fields
 

@@ -8,6 +8,7 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
 from dataonthewire import settings
+from users.models import User
 
 
 class ProjectFactSheet(models.Model):
@@ -84,12 +85,33 @@ class ProjectFactSheet(models.Model):
     input_POC_Email = models.EmailField(max_length=254)
     input_Date = models.DateField(auto_now_add=True)
     approved_by_staff = models.BooleanField(default=False)
+    rejected_by_staff = models.BooleanField(default=False)
 
 
 @receiver(pre_save, sender=ProjectFactSheet, dispatch_uid='active')
 def approved(sender, instance, **kwargs):
-    if instance.is_approved and ProjectFactSheet.objects.filter(pk=instance.pk, is_approved=False).exists():
+    if instance.approved_by_staff and ProjectFactSheet.objects.filter(pk=instance.pk, approved_by_staff=False).exists():
         subject = 'Sheet %s Approved' % instance.project_ID
         message = '%s your sheet has been approved' % instance.input_POC_First_Name
         from_email = settings.EMAIL_HOST_USER
         send_mail(subject, message, from_email, [instance.input_POC_Email], fail_silently=False)
+
+
+@receiver(pre_save, sender=ProjectFactSheet, dispatch_uid='active')
+def rejected(sender, instance, **kwargs):
+    if instance.rejected_by_staff and ProjectFactSheet.objects.filter(pk=instance.pk, rejected_by_staff=False).exists():
+        subject = 'Sheet %s Rejected' % instance.project_ID
+        message = '%s your sheet has been rejected, please review the information entered' % instance.input_POC_First_Name
+        from_email = settings.EMAIL_HOST_USER
+        send_mail(subject, message, from_email, [instance.input_POC_Email], fail_silently=False)
+
+
+@receiver(pre_save, sender=ProjectFactSheet, dispatch_uid='active')
+def updated(sender, instance, **kwargs):
+    if not instance.rejected_by_staff and ProjectFactSheet.objects.filter(pk=instance.pk, rejected_by_staff=True).exists():
+        subject = 'Sheet %s updated' % instance.project_ID
+        message = 'Sheet %s has been updated, please review the information and approve or reject' % instance.project_ID
+        from_email = settings.EMAIL_HOST_USER
+        users = User.objects.get(is_staff=True)
+        staff_mails = users.email
+        send_mail(subject, message, from_email, staff_mails, fail_silently=False)
