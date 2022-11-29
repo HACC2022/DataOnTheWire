@@ -17,6 +17,7 @@
                 <tr>
                     <td>Project {{ project_fact_sheet.project_ID }}</td>
                     <td>{{ project_fact_sheet.project_Phase }}</td>
+                    <td><a href="{% url 'show-project-fact-sheet' project_fact_sheet.project_ID %}" class="btn btn-sm btn-outline-info" role="button">View</a></td>
                 </tr>
             {% endfor %}
         </tbody>

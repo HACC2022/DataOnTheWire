@@ -1,0 +1,53 @@
+{% extends "dataonthewire/base.html" %}
+{% block content %}
+    <h1>Project Fact Sheet</h1>
+    <br>
+    <table class="table table-striped table-bordered">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <td>{{ project_fact_sheet.project_ID }}</td>
+            </tr>
+            <tr>
+                <th>Phase</th>
+                <td>{{ project_fact_sheet.project_Phase }}</td>
+            </tr>
+            <tr>
+                <th>Source of Funding</th>
+                <td>{{ project_fact_sheet.source_of_Funding }}</td>
+            </tr>
+            <tr>
+                <th>Funding Received</th>
+                <td>${{ project_fact_sheet.funding_Received}}</td>
+            </tr>
+            <tr>
+                <th>Year Funding Received</th>
+                <td>{{ project_fact_sheet.year_Funding_Received}}</td>
+            </tr>
+            <tr>
+                <th>Project Status Update</th>
+                <td>{{ project_fact_sheet.project_Status_Update}}</td>
+            </tr>
+            <tr>
+                <th>Links Report Studies</th>
+                <td><a href="url">{{ project_fact_sheet.links_Report_Studies}}</a></td>
+            </tr>
+            <tr>
+                <th>Links Image(s)</th>
+                <td><img src="{{ project_fact_sheet.links_Images}}"></td>
+            </tr>
+            <tr>
+                <th>Point of Contact Name</th>
+                <td>{{ project_fact_sheet.input_POC_Last_Name}}, {{ project_fact_sheet.input_POC_First_Name}}</td>
+            </tr>
+            <tr>
+                <th>Point of Contact Email</th>
+                <td>{{ project_fact_sheet.input_POC_Email}}</td>
+            </tr>
+            <tr>
+                <th>Date Submitted</th>
+                <td>{{ project_fact_sheet.input_Date}}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock content %}

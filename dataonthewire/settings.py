@@ -146,7 +146,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_URL = 'login'
 
-LOGIN_REDIRECT_URL = 'input-project-fact-sheet'
+LOGIN_REDIRECT_URL = 'show-project-fact-sheets'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
