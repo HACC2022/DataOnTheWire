@@ -78,5 +78,12 @@ def show_project_fact_sheet(request, project_id):
 def update_project_fact_sheet(request, project_id):
     project_fact_sheet = ProjectFactSheet.objects.get(pk=project_id)
     form = ProjectFactSheetForm(request.POST or None, instance=project_fact_sheet)
+    if form.is_valid():
+        # save the form data to model
+        project_fact_sheet = form.save()
+        project_fact_sheet.save()
+        # context['form'] = form
+        return redirect('show-project-fact-sheets')
     return render(request, 'input/update_project_fact_sheet.html', {'project_fact_sheet': project_fact_sheet, 'form':form})
+
 
