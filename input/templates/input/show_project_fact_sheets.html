@@ -1,0 +1,24 @@
+{% extends "dataonthewire/base.html" %}
+{% block content %}
+    <h1>Project Fact Sheets</h1>
+    <br>
+    <a href="{% url 'input-project-fact-sheet' %}" class="btn btn-block btn-outline-info" role="button">Submit Project Fact Sheet</a>
+    <br>
+    <br>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Phase</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project_fact_sheet in project_fact_sheets %}
+                <tr>
+                    <td>Project {{ project_fact_sheet.project_ID }}</td>
+                    <td>{{ project_fact_sheet.project_Phase }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
