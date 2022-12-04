@@ -104,6 +104,6 @@ def approved(sender, instance, **kwargs):
         subject = 'Sheet %s updated' % instance.project_ID
         message = 'Sheet %s has been updated, please review the information and approve or reject' % instance.project_ID
         from_email = settings.EMAIL_HOST_USER
-        users = User.objects.get(is_staff=True)
-        staff_mails = users.email
-        send_mail(subject, message, from_email, staff_mails, fail_silently=False)
+        # users = User.objects.get(is_staff=True)
+        staff_mails = "bjarne.martens@icloud.com"
+        send_mail(subject, message, from_email, [staff_mails], fail_silently=False)

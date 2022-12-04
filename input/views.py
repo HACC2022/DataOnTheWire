@@ -83,9 +83,18 @@ def show_project_fact_sheet(request, project_id):
 @login_required
 def update_project_fact_sheet(request, project_id):
     project_fact_sheet = ProjectFactSheet.objects.get(pk=project_id)
+    project_fact_sheet.rejected_by_staff = False
+    project_fact_sheet.approved_by_staff = False
+    project_fact_sheet.save(update_fields=['rejected_by_staff', 'approved_by_staff'])
+    # project_fact_sheet = ProjectFactSheet.objects.get(pk=project_id)
     form = ProjectFactSheetForm(request.POST or None, instance=project_fact_sheet)
+
     if form.is_valid():
         # save the form data to model
+        project_fact_sheet_form = form.save(commit=False)
+        print("HERE", project_fact_sheet.rejected_by_staff)
+        project_fact_sheet_form.approved_by_staff = False
+        project_fact_sheet_form.rejected_by_staff = False
         form.save()
         # context['form'] = form
         return redirect('show-project-fact-sheets')
