@@ -65,6 +65,7 @@ def project_fact_sheet_view(request):
     return render(request, 'input/project_fact_sheet.html', {'form': form})
 
 
+@login_required
 def show_project_fact_sheets(request):
     rejected = ProjectFactSheet.objects.filter(rejected_by_staff=1)
     accepted = ProjectFactSheet.objects.filter(approved_by_staff=1)
@@ -73,11 +74,13 @@ def show_project_fact_sheets(request):
                   {'rejected': rejected, 'accepted': accepted, 'waiting': waiting})
 
 
+@login_required
 def show_project_fact_sheet(request, project_id):
     project_fact_sheet = ProjectFactSheet.objects.get(pk=project_id)
     return render(request, 'input/show_project_fact_sheet.html', {'project_fact_sheet': project_fact_sheet})
 
 
+@login_required
 def update_project_fact_sheet(request, project_id):
     project_fact_sheet = ProjectFactSheet.objects.get(pk=project_id)
     form = ProjectFactSheetForm(request.POST or None, instance=project_fact_sheet)

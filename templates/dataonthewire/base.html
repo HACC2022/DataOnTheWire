@@ -19,10 +19,11 @@
     {% endif %}
 </head>
 <body>
+    {% block header %}
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="{% url 'input-project-fact-sheet' %}">DataOnTheWire</a>
+          <a class="navbar-brand mr-4 h1" style="color: white">DataOnTheWire</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
           </button>
@@ -31,11 +32,17 @@
               <a class="nav-item nav-link" href="{% url 'show-project-fact-sheets' %}">Home</a>
               <a class="nav-item nav-link" href="{% url 'admin' %}">Admin</a>
             </div>
+            <span class="navbar-nav mr-right">
+              <a class="nav-item nav-link" href="/admin">View Admin</a>
+              <a class="nav-item nav-link" href="{% url 'login' %}">Logout</a>
+            </span>
+
             <!-- Navbar Right Side -->
           </div>
         </div>
       </nav>
     </header>
+    {% endblock %}
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
