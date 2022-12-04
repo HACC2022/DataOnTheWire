@@ -95,12 +95,12 @@ def approved(sender, instance, **kwargs):
         subject = 'Sheet %s Approved' % instance.project_ID
         message = '%s your sheet has been approved' % instance.input_POC_First_Name
         from_email = settings.EMAIL_HOST_USER
-        send_mail(subject, message, from_email, [instance.input_POC_Email], fail_silently=False)
+        send_mail(subject, message, from_email, [instance.input_POC_User.email], fail_silently=False)
     if instance.rejected_by_staff and ProjectFactSheet.objects.filter(pk=instance.pk, rejected_by_staff=False).exists():
         subject = 'Sheet %s Rejected' % instance.project_ID
         message = '%s your sheet has been rejected, please review the information entered' % instance.input_POC_First_Name
         from_email = settings.EMAIL_HOST_USER
-        send_mail(subject, message, from_email, [instance.input_POC_Email], fail_silently=False)
+        send_mail(subject, message, from_email, [instance.input_POC_User.email], fail_silently=False)
     if not instance.rejected_by_staff and ProjectFactSheet.objects.filter(pk=instance.pk, rejected_by_staff=True).exists():
         subject = 'Sheet %s updated' % instance.project_ID
         message = 'Sheet %s has been updated, please review the information and approve or reject' % instance.project_ID
