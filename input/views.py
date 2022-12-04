@@ -56,6 +56,7 @@ def project_fact_sheet_view(request):
         # check if form data is valid
         if form.is_valid():
             # save the form data to model
+            form.instance.input_POC_User_id = request.user.id
             project_fact_sheet = form.save()
             project_fact_sheet.save()
             # context['form'] = form
@@ -67,9 +68,10 @@ def project_fact_sheet_view(request):
 
 @login_required
 def show_project_fact_sheets(request):
-    rejected = ProjectFactSheet.objects.filter(rejected_by_staff=1)
-    accepted = ProjectFactSheet.objects.filter(approved_by_staff=1)
-    waiting = ProjectFactSheet.objects.filter(approved_by_staff=0).filter(rejected_by_staff=0)
+    user = ProjectFactSheet.objects.filter(input_POC_User=request.user)
+    rejected = user.filter(rejected_by_staff=1)
+    accepted = user.filter(approved_by_staff=1)
+    waiting = user.filter(approved_by_staff=0).filter(rejected_by_staff=0)
     return render(request, 'input/show_project_fact_sheets.html',
                   {'rejected': rejected, 'accepted': accepted, 'waiting': waiting})
 

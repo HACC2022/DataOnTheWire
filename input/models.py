@@ -83,6 +83,7 @@ class ProjectFactSheet(models.Model):
     input_POC_Last_Name = models.CharField(max_length=100)
     input_POC_First_Name = models.CharField(max_length=100)
     input_POC_Email = models.EmailField(max_length=254)
+    input_POC_User = models.ForeignKey(User, on_delete=models.CASCADE)
     input_Date = models.DateField(auto_now_add=True)
     approved_by_staff = models.BooleanField(default=False)
     rejected_by_staff = models.BooleanField(default=False)
