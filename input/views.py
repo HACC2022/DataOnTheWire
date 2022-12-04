@@ -59,15 +59,18 @@ def project_fact_sheet_view(request):
             project_fact_sheet = form.save()
             project_fact_sheet.save()
             # context['form'] = form
-            return redirect('login')
+            return redirect('show-project-fact-sheets')
     else:
         form = ProjectFactSheetForm()
     return render(request, 'input/project_fact_sheet.html', {'form': form})
 
 
 def show_project_fact_sheets(request):
-    project_fact_sheets = ProjectFactSheet.objects.all()
-    return render(request, 'input/show_project_fact_sheets.html', {'project_fact_sheets': project_fact_sheets})
+    rejected = ProjectFactSheet.objects.filter(rejected_by_staff=1)
+    accepted = ProjectFactSheet.objects.filter(approved_by_staff=1)
+    waiting = ProjectFactSheet.objects.filter(approved_by_staff=0).filter(rejected_by_staff=0)
+    return render(request, 'input/show_project_fact_sheets.html',
+                  {'rejected': rejected, 'accepted': accepted, 'waiting': waiting})
 
 
 def show_project_fact_sheet(request, project_id):
@@ -80,10 +83,8 @@ def update_project_fact_sheet(request, project_id):
     form = ProjectFactSheetForm(request.POST or None, instance=project_fact_sheet)
     if form.is_valid():
         # save the form data to model
-        project_fact_sheet = form.save()
-        project_fact_sheet.save()
+        form.save()
         # context['form'] = form
         return redirect('show-project-fact-sheets')
-    return render(request, 'input/update_project_fact_sheet.html', {'project_fact_sheet': project_fact_sheet, 'form':form})
-
-
+    return render(request, 'input/update_project_fact_sheet.html',
+                  {'project_fact_sheet': project_fact_sheet, 'form': form})

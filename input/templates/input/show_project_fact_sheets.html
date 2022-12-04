@@ -5,6 +5,7 @@
     <a href="{% url 'input-project-fact-sheet' %}" class="btn btn-block btn-outline-info" role="button">Submit Project Fact Sheet</a>
     <br>
     <br>
+    <h2>Rejected</h2>
     <table class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
@@ -13,12 +14,52 @@
             </tr>
         </thead>
         <tbody>
-            {% for project_fact_sheet in project_fact_sheets %}
+            {% for reject in rejected %}
                 <tr>
-                    <td>Project {{ project_fact_sheet.project_ID }}</td>
-                    <td>{{ project_fact_sheet.project_Phase }}</td>
-                    <td align="center"><a href="{% url 'show-project-fact-sheet' project_fact_sheet.project_ID %}" class="btn btn-sm btn-outline-info" role="button">View</a></td>
-                    <td align="center"><a href="{% url 'update-project-fact-sheet' project_fact_sheet.project_ID %}" class="btn btn-sm btn-outline-info" role="button">Edit</a></td>
+                    <td>{{ reject.project_ID }}</td>
+                    <td>{{ reject.project_Phase }}</td>
+                    <td align="center"><a href="{% url 'show-project-fact-sheet' reject.project_ID %}" class="btn btn-sm btn-outline-info" role="button">View</a></td>
+                    <td align="center"><a href="{% url 'update-project-fact-sheet' reject.project_ID %}" class="btn btn-sm btn-outline-info" role="button">Update</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h2>Waiting on Approval</h2>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Phase</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wait in waiting %}
+                <tr>
+                    <td>{{ wait.project_ID }}</td>
+                    <td>{{ wait.project_Phase }}</td>
+                    <td align="center"><a href="{% url 'show-project-fact-sheet' wait.project_ID %}" class="btn btn-sm btn-outline-info" role="button">View</a></td>
+                    <td align="center"><a href="{% url 'update-project-fact-sheet' wait.project_ID %}" class="btn btn-sm btn-outline-info" role="button">Update</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h2>Approved</h2>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Phase</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for accept in accepted %}
+                <tr>
+                    <td>{{ accept.project_ID }}</td>
+                    <td>{{ accept.project_Phase }}</td>
+                    <td align="center"><a href="{% url 'show-project-fact-sheet' accept.project_ID %}" class="btn btn-sm btn-outline-info" role="button">View</a></td>
+                    <td align="center"><a href="{% url 'update-project-fact-sheet' accept.project_ID %}" class="btn btn-sm btn-outline-info" role="button">Update</a></td>
                 </tr>
             {% endfor %}
         </tbody>
